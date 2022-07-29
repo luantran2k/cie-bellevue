@@ -1,0 +1,80 @@
+#footer {
+    margin-top: 16.6rem;
+    color: $light-text;
+    background: linear-gradient(
+        180deg,
+        rgba(21, 40, 75, 0.86) 0%,
+        #15284b 100%
+    );
+    .contact {
+        padding: 4.6rem 6.4rem;
+        background-color: $dark-blue;
+        border-radius: 1rem;
+        display: grid;
+        grid-template-columns: 1.5fr 8.5fr;
+        column-gap: 2rem;
+        row-gap: 1rem;
+        transform: translateY(-25%);
+
+        h3 {
+            grid-column: 1/ -1;
+            font-size: 3.2rem;
+            margin-bottom: 4rem;
+        }
+        p,
+        a,
+        address {
+            font-size: 2.4rem;
+            font-style: normal;
+            line-height: 1.4;
+        }
+    }
+    .footer-content {
+        padding-bottom: 8rem;
+        display: flex;
+        justify-content: space-between;
+        .footer-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            div {
+                img {
+                    height: 100%;
+                }
+                &:first-child {
+                    width: 8.6rem;
+                    height: 8.6rem;
+                }
+            }
+            .copyright {
+                color: $light-gray;
+                font-weight: 300;
+                margin-top: 1.4rem;
+                font-size: 1.4rem;
+                line-height: 1.7;
+            }
+        }
+        .footer-links {
+            display: flex;
+            gap: 7.6rem;
+
+            ul {
+                list-style-type: none;
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+
+                a {
+                    font-size: 1.6rem;
+                    &:link,
+                    &:hover,
+                    &:active,
+                    &:visited {
+                        color: $light-text;
+                    }
+                }
+            }
+        }
+    }
+}

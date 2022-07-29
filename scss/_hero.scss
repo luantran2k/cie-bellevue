@@ -1,0 +1,32 @@
+#hero {
+    background: url("../img/hero-bg.jpg") no-repeat right top;
+    background-size: cover;
+    .container {
+        padding-top: 59%;
+        position: relative;
+        .hero-text {
+            position: absolute;
+            top: 26%;
+            left: 0%;
+            width: 44%;
+            margin-left: 2rem;
+            .main-title {
+                text-transform: uppercase;
+                color: $light-text;
+                font-size: 3.6rem;
+                line-height: 1.25;
+                font-weight: $regular;
+                span {
+                    font-weight: $bold;
+                }
+            }
+            .hero-view-more {
+                display: inline-block;
+                color: $light-text;
+                font-style: italic;
+                font-size: 2rem;
+                margin-top: 2.8rem;
+            }
+        }
+    }
+}

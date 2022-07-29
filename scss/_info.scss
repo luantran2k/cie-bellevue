@@ -1,0 +1,39 @@
+#info {
+    margin-top: 7.8rem;
+    display: grid;
+    grid-template-columns: 3.8fr 6.2fr;
+    background: url("../img/info-bg.jpg") no-repeat;
+    background-size: cover;
+    .img-box {
+        background: url("../img/info-bg.jpg") no-repeat center;
+        background-size: cover;
+    }
+    .text-box {
+        color: $light-text;
+        padding: 6.4rem;
+        background: rgba($color: #000000, $alpha: 0.7);
+        backdrop-filter: blur(1rem);
+        .info-title {
+            font-size: 2.4rem;
+            font-weight: $bold;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        ul {
+            margin-top: 1.6rem;
+            list-style: none;
+        }
+        h3 {
+            font-size: 2.6rem;
+            line-height: 1.6;
+            span {
+                font-weight: $regular;
+            }
+        }
+        p {
+            text-align: justify;
+            font-size: 2.6rem;
+            line-height: 1.4;
+        }
+    }
+}

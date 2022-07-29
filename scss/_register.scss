@@ -1,0 +1,53 @@
+#register {
+    margin-top: 8.6rem;
+    .register-form {
+        padding: 4rem 9.4rem;
+        background-color: $blue;
+        color: $light-blue;
+        border-radius: 2rem;
+        .grid.grid--2-cols {
+            column-gap: 12%;
+        }
+        label {
+            font-size: 2.4rem;
+            margin-bottom: 1.2rem;
+            display: block;
+        }
+        input,
+        select {
+            width: 100%;
+            font-size: 2.4rem;
+            padding: 1.6rem 4rem;
+            border: none;
+            border-radius: 2rem;
+            appearance: none;
+            line-height: 1;
+            &[type="file"] {
+                display: none;
+            }
+            &[type="submit"] {
+                width: auto;
+                position: relative;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            &::placeholder {
+                color: $gray;
+            }
+        }
+        .input-item {
+            margin-bottom: 4rem;
+            .fake-input {
+                background-color: $light-text;
+                color: $gray;
+                padding: 1.6rem 4rem;
+                border-radius: 2rem;
+                line-height: 1.133334;
+                filter: grayscale(1);
+            }
+            #portrait-img {
+                max-width: 20rem;
+            }
+        }
+    }
+}
