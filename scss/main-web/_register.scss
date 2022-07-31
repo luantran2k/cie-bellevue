@@ -35,8 +35,40 @@
                 color: $gray;
             }
         }
+        #gender {
+            background-color: #fff;
+            display: none;
+            & + .gender-option {
+                display: none;
+                z-index: 1;
+                position: absolute;
+                overflow: hidden;
+                left: 0;
+                right: 0;
+                list-style-type: none;
+                background-color: #fff;
+                border-radius: 2rem;
+                border: 1px solid $gray;
+                &.active {
+                    display: block;
+                }
+                li {
+                    font-size: 2.4rem;
+                    color: $gray;
+                    padding: 1.4rem 4rem;
+                    &:not(:last-child) {
+                        border-bottom: 1px solid $gray;
+                    }
+                    &:hover {
+                        color: $dark-text;
+                        background-color: $light-blue;
+                    }
+                }
+            }
+        }
         .input-item {
             margin-bottom: 4rem;
+            position: relative;
             .fake-input {
                 background-color: $light-text;
                 color: $gray;
@@ -44,6 +76,9 @@
                 border-radius: 2rem;
                 line-height: 1.133334;
                 filter: grayscale(1);
+                &.active {
+                    color: $dark-text;
+                }
             }
             #portrait-img {
                 max-width: 20rem;
