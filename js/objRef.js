@@ -1,0 +1,15 @@
+export const registerLabel = {
+    application: "Đơn đăng ký xét tuyển",
+    email: "Email liên hệ",
+    "english-copy": "Bản sao chứng chỉ tiếng Anh",
+    gender: "Giới tính",
+    "high-school-degree-copy": "Bản sao hợp lệ Bằng Tốt nghiệp THPT",
+    "high-school-report-copy": "Bản sao hợp lệ Học bạ THPT",
+    "identification-copy": "Bản sao hợp lệ CMND hoặc Hộ chiếu",
+    name: "Họ và tên",
+    phone: "Số điện thoại",
+    portrait: "Ảnh chân dung 3x4",
+    resume: "Sơ yếu lý lịch",
+    sendTime: "Thời gian nộp",
+    more: "Xem thêm",
+};
