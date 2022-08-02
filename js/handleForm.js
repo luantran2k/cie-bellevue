@@ -33,13 +33,9 @@ export async function sendRegisterForm(registerData) {
     }
 }
 
-export async function readAllData() {
-    const querySnapshot = await getDocs(collection(db, "registers"));
-    const res = [];
-    querySnapshot.forEach((doc) => {
-        res.push({ ...doc.data(), id: doc.id });
-    });
-    return res;
+export async function readAllData(collectionName) {
+    const querySnapshot = await getDocs(collection(db, collectionName));
+    return querySnapshot.docs.map((data) => data.data());
 }
 
 export async function readResigerById(id) {

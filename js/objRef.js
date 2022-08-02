@@ -12,4 +12,6 @@ export const registerLabel = {
     resume: "Sơ yếu lý lịch",
     sendTime: "Thời gian nộp",
     more: "Xem thêm",
+    date: "Ngày gửi",
+    time: "Giờ gửi",
 };

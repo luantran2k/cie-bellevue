@@ -21,10 +21,10 @@
                     <img src="./img/logo.png" alt="logo" class="logo-img" />
                 </div>
                 <ul>
-                    <li class="active navItem">
+                    <li tableName="consultations" class="active navItem">
                         <a href="#">Đăng ký tư vấn</a>
                     </li>
-                    <li class="navItem">
+                    <li tableName="registers" class="navItem">
                         <a href="#">Hồ sơ đã nộp</a>
                     </li>
                 </ul>
@@ -32,10 +32,20 @@
         </header>
         <main id="main">
             <div class="container">
-                <table id="table">
+                <a href="" class="dowload-csv">Tải toàn bộ dữ liệu</a>
+                <table id="consultations-table">
                     <thead></thead>
                     <tbody></tbody>
                 </table>
+                <table id="registers-table">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+                <div class="pagination">
+                    <button class="previous">&lt;</button>
+                    <ul></ul>
+                    <button class="next">&gt;</button>
+                </div>
             </div>
         </main>
         <script src="./js/dashboard.js" type="module"></script>
