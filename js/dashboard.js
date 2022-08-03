@@ -5,8 +5,12 @@ import {
     collection,
     addDoc,
     getDocs,
+    doc,
+    updateDoc,
+    deleteDoc,
     serverTimestamp,
     query,
+    where,
     orderBy,
     startAfter,
     endBefore,
@@ -16,25 +20,109 @@ import {
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 const NUM_ROW_DISPLAY = 20;
-let tableHead = $("#consultations-table thead");
-let tableBody = $("#registers-table tbody");
-let tableName = "consultations";
+let tableName = "registers";
+let tableHead = $(`#table thead`);
+let tableBody = $(`#table tbody`);
 let tableKeyArr = [];
 let firstDoc, lastDoc;
+let queryConditions = [];
 
 function start() {
+    $(`[tableName=${tableName}]`).classList.add("active");
     handleNav();
-    handleDownload();
-    loadConsultationrTable();
+    handleToolBar();
+    loadTable(tableName);
     handleControlPagination();
 }
 
+function handleToolBar() {
+    handleDownload();
+    handleStarCheckBtn();
+    handleStarUnCheckBtn();
+    handleViewStar();
+    handleRemoveChecked();
+}
+
+function clearChecked() {
+    const checkedInputs = $$('input[type="checkbox"]:checked');
+    checkedInputs.forEach((checkedInput) => {
+        checkedInput.checked = false;
+    });
+}
+
+function starCheck(star) {
+    star.classList.remove("gray");
+    updateDoc(doc(db, tableName, star.getAttribute("value")), {
+        hasStar: true,
+    });
+}
+
+function starUnCheck(star) {
+    star.classList.add("gray");
+    updateDoc(doc(db, tableName, star.getAttribute("value")), {
+        hasStar: false,
+    });
+}
+
+//Check star checked by checkbox
+function handleStarCheckBtn() {
+    $(".star-check").addEventListener("click", (e) => {
+        const checkedInputs = $$('input[type="checkbox"]:checked');
+        checkedInputs.forEach((checkedInput) => {
+            let star = $(`.star[value="${checkedInput.value}"]`);
+            starCheck(star);
+            clearChecked();
+        });
+    });
+}
+
+//Un check star checked by checkbox
+function handleStarUnCheckBtn() {
+    $(".star-uncheck").addEventListener("click", (e) => {
+        const checkedInputs = $$('input[type="checkbox"]:checked');
+        checkedInputs.forEach((checkedInput) => {
+            let star = $(`.star[value="${checkedInput.value}"]`);
+            starUnCheck(star);
+            clearChecked();
+        });
+    });
+}
+
+function handleViewStar() {
+    $(".view-star").addEventListener("click", function (e) {
+        if (this.getAttribute("view-star") == "true") {
+            this.setAttribute("view-star", false);
+            queryConditions = [];
+            this.innerText = "Xem đánh dấu sao";
+        } else {
+            this.setAttribute("view-star", true);
+            queryConditions.push(where("hasStar", "==", true));
+            this.innerText = "Trở về";
+        }
+
+        loadTable(tableName);
+    });
+}
+function handleRemoveChecked() {
+    const removeCheckedBtn = $(".remove-check");
+    removeCheckedBtn.addEventListener("click", (e) => {
+        if (confirm("Chắc chắn xoá những mục đã đánh dấu")) {
+            const checkedInputs = $$('input[type="checkbox"]:checked');
+            checkedInputs.forEach((checkedInput) => {
+                deleteDoc(doc(db, tableName, checkedInput.value));
+            });
+            loadTable(tableName);
+        }
+    });
+}
+
 function handleDownload() {
-    $(".dowload-csv").addEventListener("click", (e) => {
+    $(".download-csv").addEventListener("click", (e) => {
         e.preventDefault();
         generateCSV();
     });
 }
+
 async function generateCSV() {
     let data = await readAllData(tableName);
     let keyArray = Object.keys(data[0]).sort();
@@ -68,26 +156,30 @@ function handleNav() {
             $(".active").classList.remove("active");
             navItem.classList.add("active");
             tableName = navItem.getAttribute("tableName");
-            if (tableName === "consultations") {
-                loadConsultationrTable();
-            } else if (tableName === "registers") {
-                loadRegisterTable();
-            }
+            loadTable(tableName);
         })
     );
 }
 
-function loadConsultationrTable() {
+function loadTable(tableName) {
+    if (tableName === "consultations") {
+        loadConsultationrTable();
+    } else if (tableName === "registers") {
+        loadRegisterTable();
+    }
+}
+async function loadConsultationrTable() {
     tableKeyArr = ["name", "email", "phone", "sendTime"];
     loadTableHead(tableKeyArr, tableHead);
-    loadTableData(tableName, tableKeyArr, tableBody);
-    hanleDetailClick();
+    await loadTableData(tableName, tableKeyArr, tableBody);
+    handleStarClick();
 }
 
-function loadRegisterTable() {
+async function loadRegisterTable() {
     tableKeyArr = ["name", "gender", "email", "phone", "sendTime", "more"];
     loadTableHead(tableKeyArr, tableHead);
-    loadTableData(tableName, tableKeyArr, tableBody);
+    await loadTableData(tableName, tableKeyArr, tableBody);
+    handleStarClick();
     hanleDetailClick();
 }
 
@@ -99,18 +191,20 @@ function loadTableHead(tableKeyArr, tableHead) {
             return `<th>${registerLabel[tableHead] || ""}</th>`;
         }
     });
-    tableHead.innerHTML = `<tr>${tableHeadData.join("")}</tr>`;
+    tableHead.innerHTML = `<tr><th></th><th></th>${tableHeadData.join(
+        ""
+    )}</tr>`;
 }
 
 async function loadTableData(collectionName, tableKeyArr, tableBody) {
-    let registerData = await getDataFirst(collectionName);
+    let registerData = await getDataFirst(collectionName, queryConditions);
     firstDoc = getFirstDocument(registerData);
     lastDoc = getLastDocument(registerData);
-    renderRegisterData(registerData, tableKeyArr, tableBody);
+    renderData(registerData, tableKeyArr, tableBody);
 }
 
-function renderRegisterData(registerData, tableKeyArr, tableBody) {
-    let datas = registerData.docs.map((doc) => doc.data());
+function renderData(registerData, tableKeyArr, tableBody) {
+    let datas = registerData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
     firstDoc = getFirstDocument(registerData);
     lastDoc = getLastDocument(registerData);
     let tableData = [];
@@ -144,18 +238,39 @@ function renderRegisterData(registerData, tableKeyArr, tableBody) {
             }
             return acc;
         }, []);
-        tableData.push(`<tr>${rowArr.join("")}</tr>`);
+        let hasStar = data.hasStar;
+        let checkBox = `<td><input type="checkbox" name="vehicle1" value="${data.id}"></td>`;
+        let star = `<td value="${data.id}" class="star ${
+            hasStar ? "" : "gray"
+        }">⭐</td>`;
+        tableData.push(`<tr>${checkBox}${star}${rowArr.join("")}</tr>`);
     }
     tableBody.innerHTML = tableData.join("");
 }
 
-function hanleDetailClick() {
-    const delails = $$(".register-detail");
-    [...delails].forEach((delail) =>
-        delail.addEventListener("click", (e) => {
-            localStorage.setItem("register-id", e.target.id);
+function handleStarClick() {
+    const stars = $$(".star");
+    [...stars].forEach((star) =>
+        star.addEventListener("click", (e) => {
+            if (star.classList.contains("gray")) {
+                starCheck(star);
+            } else {
+                starUnCheck(star);
+            }
         })
     );
+}
+
+function hanleDetailClick() {
+    const delails = $$(".register-detail");
+    [...delails].forEach((delail) => {
+        delail.addEventListener("click", (e) => {
+            localStorage.setItem("register-id", e.target.id);
+        });
+        delail.addEventListener("auxclick", (e) => {
+            localStorage.setItem("register-id", e.target.id);
+        });
+    });
 }
 
 // handle control event
@@ -180,10 +295,15 @@ function handleControlPagination() {
     });
 }
 
-async function getDataFirst(nameCollection, numRow = NUM_ROW_DISPLAY) {
+async function getDataFirst(
+    nameCollection,
+    conditions = [],
+    numRow = NUM_ROW_DISPLAY
+) {
     // Query the first page of docs
     const first = query(
         collection(db, nameCollection),
+        ...conditions,
         orderBy("sendTime", "desc"),
         limit(numRow)
     );
@@ -202,11 +322,16 @@ function getLastDocument(documentSnapshots) {
     return lastVisible;
 }
 
-async function getNextData(nameCollection, numRow = NUM_ROW_DISPLAY) {
+async function getNextData(
+    nameCollection,
+    conditions = [],
+    numRow = NUM_ROW_DISPLAY
+) {
     // Construct a new query starting at this document,
     // get the next 25 cities.
     const next = query(
         collection(db, nameCollection),
+        ...conditions,
         orderBy("sendTime", "desc"),
         startAfter(lastDoc),
         limit(numRow)
@@ -215,11 +340,16 @@ async function getNextData(nameCollection, numRow = NUM_ROW_DISPLAY) {
     return documentSnapshots;
 }
 
-async function getPreviousData(nameCollection, numRow = NUM_ROW_DISPLAY) {
+async function getPreviousData(
+    nameCollection,
+    conditions = [],
+    numRow = NUM_ROW_DISPLAY
+) {
     // Construct a new query starting at this document,
     // get the previous 25 cities.
     const previous = query(
         collection(db, nameCollection),
+        ...conditions,
         orderBy("sendTime", "desc"),
         endBefore(firstDoc),
         limitToLast(numRow)
