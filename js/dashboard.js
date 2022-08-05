@@ -1,6 +1,6 @@
 import { registerLabel } from "./objRef.js";
 import { readAllData } from "./handleForm.js";
-import app, { db } from "./configFirebase.js";
+import app, { db, auth } from "./configFirebase.js";
 import {
     collection,
     addDoc,
@@ -28,11 +28,11 @@ let firstDoc, lastDoc;
 let queryConditions = [];
 
 function start() {
-    $(`[tableName=${tableName}]`).classList.add("active");
-    handleNav();
-    handleToolBar();
-    loadTable(tableName);
-    handleControlPagination();
+    // $(`[tableName=${tableName}]`).classList.add("active");
+    // handleNav();
+    // handleToolBar();
+    // loadTable(tableName);
+    // handleControlPagination();
 }
 
 function handleToolBar() {

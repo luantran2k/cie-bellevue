@@ -19,6 +19,23 @@
         />
     </head>
     <body>
+        <div class="login-form-container">
+            <form action="" class="login-form">
+                <div class="login-input-item">
+                    <label for="login-email">Email</label>
+                    <input id="login-email" class="login-input" type="email" />
+                </div>
+                <div class="login-input-item">
+                    <label for="login-password">Password</label>
+                    <input
+                        id="login-password"
+                        class="login-input"
+                        type="password"
+                    />
+                </div>
+                <input type="submit" value="Đăng nhập" />
+            </form>
+        </div>
         <header id="header">
             <div class="container">
                 <div class="logo">
@@ -31,6 +48,7 @@
                     <li tableName="registers" class="navItem">
                         <a href="#">Hồ sơ đã nộp</a>
                     </li>
+                    <li class="login-btn">Đăng nhập</li>
                 </ul>
             </div>
         </header>
