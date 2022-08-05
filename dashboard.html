@@ -13,16 +13,71 @@
         />
         <link rel="shortcut icon" href="./img/favicon/favicon.ico" />
         <link rel="stylesheet" href="./css/dashboard.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+        />
     </head>
     <body>
+        <div class="login-form-container">
+            <form action="" class="login-form">
+                <div class="login-input-item">
+                    <label for="login-email">Email</label>
+                    <input id="login-email" class="login-input" type="email" />
+                </div>
+                <div class="login-input-item">
+                    <label for="login-password">Password</label>
+                    <input
+                        id="login-password"
+                        class="login-input"
+                        type="password"
+                    />
+                </div>
+                <input type="submit" value="Đăng nhập" />
+            </form>
+        </div>
         <header id="header">
             <div class="container">
                 <div class="logo">
-                    <img src="./img/logo.png" alt="logo" />
+                    <img src="./img/logo.png" alt="logo" class="logo-img" />
                 </div>
+                <ul>
+                    <li tableName="consultations" class="navItem">
+                        <a href="#">Đăng ký tư vấn</a>
+                    </li>
+                    <li tableName="registers" class="navItem">
+                        <a href="#">Hồ sơ đã nộp</a>
+                    </li>
+                    <li class="login-btn">Đăng nhập</li>
+                </ul>
             </div>
         </header>
-        <div id="table-data"></div>
-        <script src="./js/dashboard.js"></script>
+        <main id="main">
+            <div class="container">
+                <div class="tool-bar">
+                    <button class="button remove-check">Xoá đánh dấu</button>
+                    <button class="button star-check">Tick sao đánh dấu</button>
+                    <button class="button star-uncheck">
+                        Bỏ tick sao đánh dấu
+                    </button>
+                    <button view-star="false" class="button view-star">
+                        Xem đánh dấu sao
+                    </button>
+                    <button class="button download-csv">
+                        Tải toàn bộ dữ liệu
+                    </button>
+                </div>
+                <table id="table">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+                <div class="pagination">
+                    <button class="previous">&lt;</button>
+                    <ul></ul>
+                    <button class="next">&gt;</button>
+                </div>
+            </div>
+        </main>
+        <script src="./js/dashboard.js" type="module"></script>
     </body>
 </html>
