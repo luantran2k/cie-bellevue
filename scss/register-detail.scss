@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import "./common/reset";
+@import "./common/variables";
+@import "./common/grid";
+
+html {
+    font-size: 62.5%;
+}
+body {
+    font-family: "Inter", sans-serif;
+    line-height: 1;
+    font-weight: $regular;
+}
+
+#register-detail {
+    border-radius: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+        rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    max-width: 100rem;
+    margin: 3.2rem auto;
+    background-color: $light-blue;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 6.4rem;
+    row-gap: 6.4rem;
+    padding: 4.8rem;
+    font-size: 2rem;
+    .profile-picture {
+        justify-self: center;
+        align-self: center;
+        img {
+            box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+            border-radius: 1rem;
+            height: 100%;
+            max-height: 24rem;
+        }
+    }
+    .info {
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        p {
+            max-width: 30ch;
+            line-height: 1.5;
+            word-wrap: break-word;
+            line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            i {
+                color: $blue-7;
+                margin-right: 1rem;
+            }
+        }
+    }
+    .document-item {
+        a {
+            cursor: pointer;
+            border-radius: 1rem;
+            display: block;
+            padding: 1rem 2rem;
+            background-color: $blue-9;
+            color: #fff;
+            transition: all 0.2s;
+            &:hover {
+                background-color: $blue-7;
+            }
+        }
+    }
+}

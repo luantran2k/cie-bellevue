@@ -28,11 +28,11 @@ let firstDoc, lastDoc;
 let queryConditions = [];
 
 function start() {
-    // $(`[tableName=${tableName}]`).classList.add("active");
-    // handleNav();
-    // handleToolBar();
-    // loadTable(tableName);
-    // handleControlPagination();
+    $(`[tableName=${tableName}]`).classList.add("active");
+    handleNav();
+    handleToolBar();
+    loadTable(tableName);
+    handleControlPagination();
 }
 
 function handleToolBar() {
