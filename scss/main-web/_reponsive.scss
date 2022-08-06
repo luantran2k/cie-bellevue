@@ -1,0 +1,246 @@
+@media only screen and (max-width: 75em) {
+    html {
+        font-size: 56.25%;
+    }
+    .logo-description {
+        display: none;
+    }
+    #header .container-w .main-nav ul {
+        gap: 4rem;
+    }
+}
+
+@media only screen and (max-width: 64em) {
+    html {
+        font-size: 50%;
+    }
+    #header .container-w {
+        padding-right: 0;
+        .main-nav {
+            ul {
+                .nav-link {
+                    font-size: 2.2rem;
+                    &.active {
+                        padding: 1.4rem 2.6rem;
+                    }
+                }
+            }
+        }
+    }
+    #header .container-w .main-nav ul {
+        gap: 3rem;
+    }
+}
+
+@media only screen and (max-width: 48em) {
+    html {
+        font-size: 43.75%;
+    }
+    #header .container-w .main-nav ul {
+        gap: 2rem;
+    }
+    #header .container-w {
+        padding-right: 0;
+        .main-nav {
+            ul {
+                .nav-link {
+                    span {
+                        display: none;
+                    }
+                    &.active {
+                        border-top-right-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+                }
+            }
+        }
+    }
+    #hero {
+        .container {
+            .hero-text {
+                .main-title {
+                    font-size: 3.2rem;
+                }
+            }
+        }
+    }
+    #consultation .container {
+        padding: 4rem 0 0 0;
+        grid-template-columns: 1fr;
+        .consultation-text {
+            padding-left: 2rem;
+            padding-right: 2rem;
+            text-align: center;
+        }
+        .consultation-form {
+            margin-top: 4.8rem;
+            flex-direction: column;
+            align-items: stretch;
+            :first-child {
+                padding: 0 2rem;
+            }
+            .btn {
+                font-size: 2.8rem;
+                border-radius: 0;
+                padding: 2.2rem 0;
+            }
+        }
+    }
+    #info {
+        grid-template-columns: 1fr;
+        .img-box {
+            padding-top: calc(100% * (2 / 3));
+        }
+        .text-box {
+            padding: 4rem 2rem 2rem 2rem;
+            background: linear-gradient(180deg, #1f3861 33.33%, #417fb9 100%);
+        }
+    }
+    #profile-require {
+        .profile-main-title {
+            font-size: 3.6rem;
+            background-color: $median-blue;
+            color: #fff;
+            font-weight: $bold;
+            padding: 2rem 0;
+        }
+        .grid--3-cols {
+            grid-template-columns: 1fr;
+        }
+        .profile-row .profile-item {
+            margin-top: 8.6rem;
+            gap: 3.2rem;
+            &.online-register {
+                grid-row: 2 / span 1;
+            }
+            .profile-item-text {
+                gap: 0;
+            }
+            .profile-item-icon {
+                width: 14rem;
+                height: 14rem;
+                font-size: 6rem;
+            }
+        }
+        .profile-item-text {
+            ul {
+                padding: 0 4rem;
+            }
+        }
+    }
+    #register {
+        &::before {
+            content: "Đăng ký trực tuyến";
+            text-transform: uppercase;
+            display: block;
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: $bold;
+            color: #fff;
+            background-color: #70bfe0;
+            border-top-left-radius: 2rem;
+            border-top-right-radius: 2rem;
+        }
+        .register-form {
+            padding: 4rem 0 0 0;
+            overflow: hidden;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            .grid--2-cols {
+                grid-template-columns: 1fr;
+            }
+            .input-item {
+                padding: 0 2rem;
+            }
+            .btn[type="submit"] {
+                font-size: 2.8rem;
+                display: block;
+                width: 100%;
+                border-radius: 0;
+                padding: 2.4rem;
+            }
+        }
+    }
+    #footer {
+        .contact {
+            padding: 4.6rem 2rem;
+            grid-template-columns: 2fr 8fr;
+            h3 {
+                text-align: center;
+            }
+            a {
+                text-decoration: underline;
+                text-underline-offset: 0.6rem;
+            }
+            p,
+            a,
+            address {
+                font-size: 2rem;
+            }
+        }
+        .footer-content {
+            flex-direction: column;
+            gap: 4.4rem;
+            .footer-logo {
+                transform: translateY(-20%);
+                div:first-child {
+                    height: 14rem;
+                    width: 14rem;
+                }
+            }
+            .copyright p {
+                font-size: 2.2rem;
+            }
+            .footer-links {
+                flex-direction: column;
+                padding: 0 8rem;
+                .introduce ul {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    gap: 0;
+                    li {
+                        margin-bottom: 2rem;
+                        flex: 1 0 50%;
+                        a {
+                            font-size: 2.4rem;
+                        }
+                    }
+                }
+                .quick-link,
+                .policy {
+                    a {
+                        font-size: 2.4rem;
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 30em) {
+    html {
+        font-size: 37.5%;
+    }
+    #hero {
+        .container {
+            .hero-text {
+                .main-title {
+                    font-size: 2.8rem;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 10em) {
+    body {
+        background-color: red;
+    }
+    #consultation .container {
+        grid-template-columns: 1fr;
+    }
+    #consultation .container .consultation-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

@@ -7,12 +7,8 @@ import {
 import saveImage from "./cloudStorage.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
-// readAllData().then((res) => {
-//     console.log(res);
-//     localStorage.setItem("testData", JSON.stringify(res));
-// });
-//handle change input file type event
 const formFileTypeInputs = $$('input[type="file"]');
+
 [...formFileTypeInputs].forEach((formFileTypeInput) => {
     formFileTypeInput.addEventListener("change", function (e) {
         let fakeInput = $(`label[for="${e.target.id}"].fake-input`);
@@ -80,25 +76,4 @@ registerSubmitBtn.addEventListener("click", async (e) => {
     }
     console.log(registerData);
     sendRegisterForm(registerData);
-    // [...registerInputs].forEach(async (input) => {
-    //     if (input.type == "file") {
-    //         if (input.files[0]) {
-    //             let fileSrc = await saveImage(input.files[0]);
-    //             registerData[input.name] = fileSrc; //input.files[0].name;
-    //             console.log(`${input.name} : ${fileSrc}`);
-    //         } else {
-    //             registerData[input.name] = "";
-    //         }
-    //     } else {
-    //         registerData[input.name] = input.value;
-    //     }
-    //     console.log(registerData);
-    // });
-    // await console.log(Object.keys(registerData));
-    // await console.log(Object.values(registerData));
-    // if (Object.values(registerData).includes("")) {
-    //     alert("Cần nhập đủ tất cả các trường");
-    // } else {
-    //     console.log(registerData);
-    // }
 });
