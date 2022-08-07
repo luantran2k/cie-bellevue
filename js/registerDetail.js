@@ -1,4 +1,4 @@
-import { readResigerById } from "./handleForm.js";
+import { readResigerById } from "./firebase/fireStore.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 

@@ -1,6 +1,6 @@
 import { registerLabel } from "./objRef.js";
-import { readAllData } from "./handleForm.js";
-import app, { db, auth } from "./configFirebase.js";
+import { readAllData } from "./firebase/fireStore.js";
+import app, { db, auth } from "./firebase/configFirebase.js";
 import {
     collection,
     addDoc,
