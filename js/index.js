@@ -53,10 +53,10 @@ function handleInputFileType() {
                 fakeInput.innerText = "📁 " + e.target.files[0].name;
                 fakeInput.classList.add("active");
             }
-            if (formFileTypeInput.id === "portrait") {
-                // console.log(formFileTypeInput.id);
-                $("#portrait-img").src = URL.createObjectURL(e.target.files[0]);
-            }
+            // if (formFileTypeInput.id === "portrait") {
+            //     // console.log(formFileTypeInput.id);
+            //     $("#portrait-img").src = URL.createObjectURL(e.target.files[0]);
+            // }
         });
     });
 }
@@ -109,7 +109,7 @@ function handleSendRegisterForm() {
                 if (input.files[0]) {
                     let fileSrc = await saveImage(input.files[0]);
                     registerData[input.name] = fileSrc; //input.files[0].name;
-                    console.log(`${input.name} : ${fileSrc}`);
+                    // console.log(`${input.name} : ${fileSrc}`);
                 } else {
                     registerData[input.name] = "";
                 }
@@ -117,7 +117,7 @@ function handleSendRegisterForm() {
                 registerData[input.name] = input.value;
             }
         }
-        console.log(registerData);
+        // console.log(registerData);
         sendRegisterForm(registerData);
     });
 }
