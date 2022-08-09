@@ -5,14 +5,17 @@ import {
     readAllData,
 } from "./firebase/fireStore.js";
 import saveImage from "./firebase/cloudStorage.js";
+import Validation from "./validation.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 function start() {
     handleNavlinkScroll();
     handleInputFileType();
+    handleInputConsultationForm();
     handleSendConsultationForm();
     handleGenderInput();
+    handleInputRegisterForm();
     handleSendRegisterForm();
 }
 
@@ -52,6 +55,8 @@ function handleInputFileType() {
             if (e.target.files[0]) {
                 fakeInput.innerText = "📁 " + e.target.files[0].name;
                 fakeInput.classList.add("active");
+                fakeInput.classList.remove("error");
+                fakeInput.parentNode.querySelector(".message").innerText = "";
             }
             // if (formFileTypeInput.id === "portrait") {
             //     // console.log(formFileTypeInput.id);
@@ -61,21 +66,63 @@ function handleInputFileType() {
     });
 }
 
-// Send consultation form
+function validateInput(input) {
+    let inputValidation = new Validation(input.value, ["required", input.name]);
+    if (inputValidation.validate()) {
+        return true;
+    }
+    input.parentNode.querySelector(".message").innerText =
+        inputValidation.message;
+
+    if (input.name == "gender") {
+        input.parentNode.querySelector(".fake-input").classList.add("error");
+    } else {
+        input.classList.add("error");
+    }
+    return false;
+}
+
+function focusInput(input) {
+    input.classList.remove("error");
+    input.parentNode.querySelector(".message").innerText = "";
+}
+
+function resetForm(form) {
+    form.reset();
+    [...form.querySelectorAll(".fake-input")].forEach((fakeInput) => {
+        fakeInput.innerHTML = "<span>📁 Tải lên file tại đây</span>";
+        fakeInput.classList.remove("active");
+    });
+    $(".gender-select").innerText = "Giới tính";
+}
+
+function handleInputConsultationForm() {
+    const consultationInputs = $$(".consultation-form-input");
+    for (let input of consultationInputs) {
+        input.addEventListener("focus", (e) => {
+            focusInput(input);
+        });
+        input.addEventListener("blur", (e) => {
+            validateInput(input);
+        });
+    }
+}
+
 function handleSendConsultationForm() {
     const consultationSubmitBtn = $(`.consultation-form input[type="submit"]`);
-    consultationSubmitBtn.addEventListener("click", (e) => {
+    consultationSubmitBtn.addEventListener("click", async (e) => {
         e.preventDefault();
         const consultationInputs = $$(".consultation-form-input");
         const consultationData = {};
-        [...consultationInputs].forEach((input) => {
-            consultationData[input.name] = input.value;
-        });
-        if (Object.values(consultationData).includes("")) {
-            alert("Cần nhập đủ các trường");
-        } else {
-            sendConsultationForm(consultationData);
+        for (let input of consultationInputs) {
+            if (validateInput(input)) {
+                consultationData[input.name] = input.value;
+            } else {
+                return;
+            }
         }
+        await sendConsultationForm(consultationData);
+        resetForm($(".consultation-form"));
     });
 }
 
@@ -94,8 +141,24 @@ function handleGenderInput() {
             genderSelect.innerText = e.target.innerText;
             genderInput.value = e.target.getAttribute("value");
             $(".gender-option").classList.remove("active");
+            genderInput.parentNode
+                .querySelector(".fake-input")
+                .classList.remove("error");
+            genderInput.parentNode.querySelector(".message").innerText = "";
         });
     });
+}
+
+function handleInputRegisterForm() {
+    const registerInputs = $$(`.register-form input:not([type="submit"])`);
+    for (let input of registerInputs) {
+        input.addEventListener("focus", (e) => {
+            focusInput(input);
+        });
+        input.addEventListener("blur", (e) => {
+            validateInput(input);
+        });
+    }
 }
 
 function handleSendRegisterForm() {
@@ -111,14 +174,21 @@ function handleSendRegisterForm() {
                     registerData[input.name] = fileSrc; //input.files[0].name;
                     // console.log(`${input.name} : ${fileSrc}`);
                 } else {
-                    registerData[input.name] = "";
+                    input.parentNode.querySelector(".message").innerText =
+                        "Cần nhập file này!";
+                    input.parentNode
+                        .querySelector(".fake-input")
+                        .classList.add("error");
+                    return;
                 }
             } else {
-                registerData[input.name] = input.value;
+                if (validateInput(input)) {
+                    registerData[input.name] = input.value;
+                } else return;
             }
         }
-        // console.log(registerData);
-        sendRegisterForm(registerData);
+        await sendRegisterForm(registerData);
+        resetForm($(".register-form"));
     });
 }
 

@@ -13,6 +13,9 @@
             margin-bottom: 1.2rem;
             display: block;
         }
+        input:not(.fake-input) {
+            margin-bottom: 1.2rem;
+        }
         input,
         select {
             width: 100%;
@@ -75,10 +78,21 @@
                 padding: 1.6rem 4rem;
                 border-radius: 2rem;
                 line-height: 1.133334;
-                filter: grayscale(1);
+                span {
+                    filter: grayscale(1);
+                }
                 &.active {
                     color: $dark-text;
                 }
+            }
+            input,
+            .fake-input {
+                &.error {
+                    box-shadow: inset 0 0 0 0.25rem $yellow;
+                }
+            }
+            .message {
+                font-size: 2rem;
             }
             #portrait-img {
                 max-width: 20rem;

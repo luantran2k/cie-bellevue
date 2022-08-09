@@ -74,29 +74,42 @@
                             tin tức liên quan...
                         </p>
                     </div>
-                    <form class="consultation-form" action="">
-                        <div>
-                            <input
-                                class="consultation-form-input"
-                                type="text"
-                                placeholder="Họ và tên"
-                                name="name"
-                                required
-                            />
-                            <input
-                                class="consultation-form-input"
-                                type="email"
-                                placeholder="Email"
-                                name="email"
-                                required
-                            />
-                            <input
-                                class="consultation-form-input"
-                                type="tel"
-                                placeholder="Số điện thoại"
-                                name="phone"
-                                required
-                            />
+                    <form
+                        class="consultation-form"
+                        action=""
+                        autocomplete="off"
+                    >
+                        <div class="consultation-inputs">
+                            <div class="consultation-input-item">
+                                <input
+                                    class="consultation-form-input"
+                                    type="text"
+                                    placeholder="Họ và tên"
+                                    name="name"
+                                    required
+                                />
+                                <em class="message"></em>
+                            </div>
+                            <div class="consultation-input-item">
+                                <input
+                                    class="consultation-form-input"
+                                    type="email"
+                                    placeholder="Email"
+                                    name="email"
+                                    required
+                                />
+                                <em class="message"></em>
+                            </div>
+                            <div class="consultation-input-item">
+                                <input
+                                    class="consultation-form-input"
+                                    type="tel"
+                                    placeholder="Số điện thoại"
+                                    name="phone"
+                                    required
+                                />
+                                <em class="message"></em>
+                            </div>
                         </div>
                         <input
                             class="btn btn--md"
@@ -264,7 +277,7 @@
             </section>
             <section id="register">
                 <div class="container">
-                    <form class="register-form" action="">
+                    <form class="register-form" action="" autocomplete="off">
                         <div class="grid grid--2-cols">
                             <div class="input-item">
                                 <label for="name">1. Họ và tên</label>
@@ -274,6 +287,7 @@
                                     name="name"
                                     placeholder="Họ và tên"
                                 />
+                                <em class="message"></em>
                             </div>
                             <div class="input-item">
                                 <label for="gender">2. Giới tính</label>
@@ -287,6 +301,7 @@
                                     <li value="Nam">Nam</li>
                                     <li value="Nữ">Nữ</li>
                                 </ul>
+                                <em class="message"></em>
                             </div>
                         </div>
                         <div class="grid grid--2-cols">
@@ -298,6 +313,7 @@
                                     name="email"
                                     placeholder="Email"
                                 />
+                                <em class="message"></em>
                             </div>
                             <div class="input-item">
                                 <label for="phone">4. Số điện thoại</label>
@@ -307,6 +323,7 @@
                                     name="phone"
                                     placeholder="Số điện thoại"
                                 />
+                                <em class="message"></em>
                             </div>
                         </div>
                         <div class="input-item">
@@ -314,13 +331,15 @@
                                 >5. Đơn đăng ký xét tuyển:</label
                             >
                             <label for="application" class="fake-input"
-                                >📁 Tải lên file tại đây</label
+                                ><span>📁 Tải lên file tại đây</span></label
                             >
                             <input
                                 type="file"
                                 id="application"
                                 name="application"
+                                accept="image/*,.pdf,.doc,.docx"
                             />
+                            <em class="message"></em>
                         </div>
                         <div class="input-item">
                             <label for="high-school-degree-copy"
@@ -329,13 +348,15 @@
                             <label
                                 for="high-school-degree-copy"
                                 class="fake-input"
-                                >📁 Tải lên file tại đây</label
+                                ><span>📁 Tải lên file tại đây</span></label
                             >
                             <input
                                 type="file"
                                 id="high-school-degree-copy"
                                 name="high-school-degree-copy"
+                                accept="image/*,.pdf,.doc,.docx"
                             />
+                            <em class="message"></em>
                         </div>
                         <div class="input-item">
                             <label for="high-school-report-copy">
@@ -344,33 +365,43 @@
                             <label
                                 for="high-school-report-copy"
                                 class="fake-input"
-                                >📁 Tải lên file tại đây</label
+                                ><span>📁 Tải lên file tại đây</span></label
                             >
                             <input
                                 type="file"
                                 id="high-school-report-copy"
                                 name="high-school-report-copy"
+                                accept="image/*,.pdf,.doc,.docx"
                             />
+                            <em class="message"></em>
                         </div>
                         <div class="input-item">
                             <label for="english-copy">
                                 8. Bản sao chứng chỉ tiếng Anh:
                             </label>
                             <label for="english-copy" class="fake-input"
-                                >📁 Tải lên file tại đây</label
+                                ><span>📁 Tải lên file tại đây</span></label
                             >
                             <input
                                 type="file"
                                 id="english-copy"
                                 name="english-copy"
+                                accept="image/*,.pdf,.doc,.docx"
                             />
+                            <em class="message"></em>
                         </div>
                         <div class="input-item">
                             <label for="resume"> 9. Sơ yếu lý lịch: </label>
                             <label for="resume" class="fake-input"
-                                >📁 Tải lên file tại đây</label
+                                ><span>📁 Tải lên file tại đây</span></label
                             >
-                            <input type="file" id="resume" name="resume" />
+                            <input
+                                type="file"
+                                id="resume"
+                                name="resume"
+                                accept="image/*,.pdf,.doc,.docx"
+                            />
+                            <em class="message"></em>
                         </div>
                         <div class="input-item">
                             <label for="identification-copy">
@@ -378,34 +409,37 @@
                                 hạn sử dụng:
                             </label>
                             <label for="identification-copy" class="fake-input">
-                                📁 Tải lên file tại đây
+                                <span>📁 Tải lên file tại đây</span>
                             </label>
                             <input
                                 type="file"
                                 id="identification-copy"
                                 name="identification-copy"
+                                accept="image/*,.pdf,.doc,.docx"
                             />
+                            <em class="message"></em>
                         </div>
                         <div class="input-item">
                             <label for="portrait">
                                 11. Ảnh 3×4 (chụp trong 3 tháng gần nhất):
                             </label>
                             <label for="portrait" class="fake-input">
-                                📁 Tải lên file tại đây
+                                <span>📁 Tải lên file tại đây</span>
                             </label>
                             <input
                                 type="file"
                                 id="portrait"
                                 name="portrait"
-                                accept="image/*,.pdf"
+                                accept="image/*"
                             />
-                            <img id="portrait-img" src="" alt="" />
+                            <em class="message"></em>
+                            <!-- <img id="portrait-img" src="" alt="" />
                             <img
                                 id="uploaded-portrait-img"
                                 src=""
                                 alt=""
                                 style="max-width: 200px"
-                            />
+                            /> -->
                         </div>
                         <input
                             type="submit"

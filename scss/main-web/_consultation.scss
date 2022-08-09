@@ -24,18 +24,30 @@
             align-items: center;
             justify-content: space-between;
             gap: 8.2rem;
-            div:first-child {
+            .consultation-inputs {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
                 gap: 3.6rem;
+                .message {
+                    color: #fff;
+                    display: inline-block;
+                    margin-top: 1rem;
+                    margin-left: 1rem;
+                    font-size: 2rem;
+                }
                 .consultation-form-input {
+                    border: none;
+                    width: 100%;
                     font-size: 2.4rem;
                     padding: 1.6rem 4rem;
                     border-radius: 2rem;
-                }
-                .consultation-form-input::placeholder {
-                    color: $dark-blue;
+                    &::placeholder {
+                        color: $dark-blue;
+                    }
+                    &.error {
+                        box-shadow: inset 0 0 0 0.25rem $yellow;
+                    }
                 }
             }
         }

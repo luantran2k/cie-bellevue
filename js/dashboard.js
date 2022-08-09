@@ -224,7 +224,7 @@ function renderData(registerData, tableKeyArr, tableBody) {
                     break;
                 case "phone":
                     acc.push(
-                        `<td><a href="tel:${data[key]}">${data[key]}t</a></td>`
+                        `<td><a href="tel:${data[key]}">${data[key]}</a></td>`
                     );
                     break;
                 case "more":
