@@ -140,21 +140,44 @@ function handleInputConsultationForm() {
     }
 }
 
+function handleFormNotification(state, form) {
+    if (state) {
+        $(".notify-message").innerText = "Gửi thành công";
+        $(".notify-content").classList.add("active");
+        setTimeout(() => {
+            $(".notify").classList.remove("active");
+            $(".notify-content").classList.remove("active");
+            $(".notify-message").innerText = "";
+            resetForm(form);
+        }, 2000);
+    } else {
+        $(".notify-message").innerText = "Có lỗi xảy ra, vui lòng thử lại";
+        $(".notify-content").classList.add("active");
+        setTimeout(() => {
+            $(".notify").classList.remove("active");
+            $(".notify-content").classList.remove("active");
+            $(".notify-message").innerText = "";
+        }, 2000);
+    }
+}
+
 function handleSendConsultationForm() {
     const consultationSubmitBtn = $(`.consultation-form input[type="submit"]`);
     consultationSubmitBtn.addEventListener("click", async (e) => {
         e.preventDefault();
+        $(".notify").classList.add("active");
         const consultationInputs = $$(".consultation-form-input");
         const consultationData = {};
         for (let input of consultationInputs) {
             if (validateInput(input)) {
                 consultationData[input.name] = input.value;
             } else {
+                $(".notify").classList.remove("active");
                 return;
             }
         }
-        await sendConsultationForm(consultationData);
-        resetForm($(".consultation-form"));
+        let state = await sendConsultationForm(consultationData);
+        handleFormNotification(state, $(".consultation-form"));
     });
 }
 
@@ -198,6 +221,7 @@ function handleSendRegisterForm() {
     const registerSubmitBtn = $(`.register-form input[type="submit"]`);
     registerSubmitBtn.addEventListener("click", async (e) => {
         e.preventDefault();
+        $(".notify").classList.add("active");
         const registerData = {};
         for (let input of [...registerInputs]) {
             if (input.type == "file") {
@@ -211,16 +235,20 @@ function handleSendRegisterForm() {
                     input.parentNode
                         .querySelector(".fake-input")
                         .classList.add("error");
+                    $(".notify").classList.remove("active");
                     return;
                 }
             } else {
                 if (validateInput(input)) {
                     registerData[input.name] = input.value;
-                } else return;
+                } else {
+                    $(".notify").classList.remove("active");
+                    return;
+                }
             }
         }
-        await sendRegisterForm(registerData);
-        resetForm($(".register-form"));
+        let state = await sendRegisterForm(registerData);
+        handleFormNotification(state, $(".register-form"));
     });
 }
 

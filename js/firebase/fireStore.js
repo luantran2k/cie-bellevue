@@ -16,10 +16,12 @@ export async function sendConsultationForm(consultationData) {
             sendTime: serverTimestamp(),
         });
         // console.log("Document written with ID: ", docRef.id);
-        alert("Gửi thành công");
+        // alert("Gửi thành công");
+        return true;
     } catch (e) {
-        alert("Có lỗi xảy ra, vui lòng thử lại");
+        // alert("Có lỗi xảy ra, vui lòng thử lại");
         console.error("Error adding document: ", e);
+        return false;
     }
 }
 
@@ -30,10 +32,12 @@ export async function sendRegisterForm(registerData) {
             sendTime: serverTimestamp(),
         });
         // console.log("Document written with ID: ", docRef.id);
-        alert("Gửi thành công");
+        // alert("Gửi thành công");
+        return true;
     } catch (e) {
-        alert("Có lỗi xảy ra, vui lòng thử lại");
+        // alert("Có lỗi xảy ra, vui lòng thử lại");
         console.error("Error adding document: ", e);
+        return false;
     }
 }
 
