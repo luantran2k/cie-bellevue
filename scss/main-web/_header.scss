@@ -41,6 +41,9 @@
                     color: $dark-text;
                     font-size: 2.4rem;
                     text-transform: uppercase;
+                    &:not(.active):hover {
+                        border-bottom: 0.2rem solid $dark-text;
+                    }
                 }
                 .nav-link.active {
                     display: inline-block;

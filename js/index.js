@@ -21,7 +21,7 @@ function start() {
 }
 
 function handleNavlinkScroll() {
-    const allLinks = document.querySelectorAll("a:link");
+    const allLinks = document.querySelectorAll(".nav-link");
 
     allLinks.forEach(function (link) {
         link.addEventListener("click", function (e) {
@@ -57,14 +57,12 @@ function handleHeaderStyle() {
             // console.log(ent);
 
             if (ent.isIntersecting === false) {
-                console.log(ent.isIntersecting);
                 $("#header").classList.add("small");
                 // document.body.classList.add("sticky");
             }
 
             if (ent.isIntersecting === true) {
                 $("#header").classList.remove("small");
-                console.log(ent.isIntersecting);
 
                 // document.body.classList.remove("sticky");
             }

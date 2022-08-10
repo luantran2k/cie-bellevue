@@ -107,6 +107,11 @@
         .grid--3-cols {
             grid-template-columns: 1fr;
         }
+        .container {
+            .profile-row:nth-child(3) {
+                margin-top: 14rem;
+            }
+        }
         .profile-row .profile-item {
             margin-top: 8.6rem;
             gap: 3.2rem;
@@ -152,6 +157,9 @@
             }
             .input-item {
                 padding: 0 2rem;
+            }
+            #gender + .gender-option {
+                margin: 0 2rem;
             }
             .btn[type="submit"] {
                 font-size: 2.8rem;

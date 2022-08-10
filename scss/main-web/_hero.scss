@@ -27,6 +27,9 @@
                 font-style: italic;
                 font-size: 2rem;
                 margin-top: 2.8rem;
+                &:hover {
+                    border-bottom: 0.2rem solid $light-text;
+                }
             }
         }
     }
