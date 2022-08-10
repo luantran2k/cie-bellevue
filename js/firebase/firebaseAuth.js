@@ -14,16 +14,13 @@ export async function checkLogIn(accept, reject) {
         }
     });
 }
-export function logIn(email, password, hiddenForm) {
-    let auth = getAuth();
+export function logIn(email, password, hiddenForm, messageEl) {
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             hiddenForm();
         })
         .catch((error) => {
-            console.log(error);
-            const errorCode = error.code;
-            const errorMessage = error.message;
+            messageEl.innerText = error.message;
         });
 }
 

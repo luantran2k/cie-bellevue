@@ -63,7 +63,12 @@ function handleLogin() {
     let form = $(".login-form");
     form.addEventListener("submit", (e) => {
         e.preventDefault();
-        logIn(emailInput.value, passWordInput.value, hiddenLoginForm);
+        logIn(
+            emailInput.value,
+            passWordInput.value,
+            hiddenLoginForm,
+            $(".login-mess")
+        );
     });
 }
 

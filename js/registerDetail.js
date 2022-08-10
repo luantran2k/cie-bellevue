@@ -1,8 +1,10 @@
 import { readResigerById } from "./firebase/fireStore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-auth.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 function start() {
+    getAuth();
     const id = localStorage.getItem("register-id");
     readResigerById(id).then((registerObj) => {
         fillData(registerObj);
