@@ -1,7 +1,8 @@
 import { registerLabel } from "./objRef.js";
-import { readAllData } from "./firebase/fireStore.js";
+import { readAllData, readDocrById } from "./firebase/fireStore.js";
 import { db } from "./firebase/configFirebase.js";
 import { logIn, checkLogIn, logOut } from "./firebase/firebaseAuth.js";
+import { deleteFileByURL } from "./firebase/cloudStorage.js";
 import {
     collection,
     addDoc,
@@ -113,7 +114,6 @@ function handleStarCheckBtn() {
         const checkedInputs = $$(
             'input[type="checkbox"]:not(.check-all):checked'
         );
-        console.log(checkedInputs);
         checkedInputs.forEach((checkedInput) => {
             let star = $(`.star[value="${checkedInput.value}"]`);
             starCheck(star);
@@ -151,14 +151,33 @@ function handleViewStar() {
         loadTable(tableName);
     });
 }
+
+async function removeFileOfDocById(id) {
+    if (tableName != "registers") return;
+    let obj = await readDocrById("registers", id);
+    const urls = Object.values(obj).filter((value) => {
+        if (typeof value == "string" && value.startsWith("http")) {
+            return true;
+        }
+        return false;
+    });
+    urls.forEach(async (url) => {
+        await deleteFileByURL(url);
+    });
+}
+
 function handleRemoveChecked() {
     const removeCheckedBtn = $(".remove-check");
-    removeCheckedBtn.addEventListener("click", (e) => {
+    removeCheckedBtn.addEventListener("click", async (e) => {
         if (confirm("Chắc chắn xoá những mục đã đánh dấu")) {
-            const checkedInputs = $$('input[type="checkbox"]:checked');
-            checkedInputs.forEach((checkedInput) => {
+            const checkedInputs = $$(
+                'input[type="checkbox"]:not(.check-all):checked'
+            );
+            for (let checkedInput of checkedInputs) {
+                await removeFileOfDocById(checkedInput.value);
                 deleteDoc(doc(db, tableName, checkedInput.value));
-            });
+            }
+            alert("Xoá thành công");
             loadTable(tableName);
         }
     });

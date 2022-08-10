@@ -1,5 +1,4 @@
 import app, { db } from "./configFirebase.js";
-import saveImage from "./cloudStorage.js";
 import {
     collection,
     addDoc,
@@ -46,8 +45,8 @@ export async function readAllData(collectionName) {
     return querySnapshot.docs.map((data) => data.data());
 }
 
-export async function readResigerById(id) {
-    const docRef = doc(db, "registers", id);
+export async function readDocrById(collection, id) {
+    const docRef = doc(db, collection, id);
     try {
         const docSnap = await getDoc(docRef);
         return docSnap.data();

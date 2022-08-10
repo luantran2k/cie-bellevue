@@ -4,7 +4,7 @@ import {
     sendRegisterForm,
     readAllData,
 } from "./firebase/fireStore.js";
-import saveImage from "./firebase/cloudStorage.js";
+import { saveFile } from "./firebase/cloudStorage.js";
 import Validation from "./validation.js";
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
@@ -224,7 +224,7 @@ function handleSendRegisterForm() {
         for (let input of [...registerInputs]) {
             if (input.type == "file") {
                 if (input.files[0]) {
-                    let fileSrc = await saveImage(input.files[0]);
+                    let fileSrc = await saveFile(input.files[0], input.name);
                     registerData[input.name] = fileSrc; //input.files[0].name;
                     // console.log(`${input.name} : ${fileSrc}`);
                 } else {
