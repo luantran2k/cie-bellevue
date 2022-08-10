@@ -11,6 +11,7 @@ const $$ = document.querySelectorAll.bind(document);
 
 function start() {
     handleNavlinkScroll();
+    handleHeaderStyle();
     handleInputFileType();
     handleInputConsultationForm();
     handleSendConsultationForm();
@@ -45,6 +46,37 @@ function handleNavlinkScroll() {
             }
         });
     });
+}
+
+function handleHeaderStyle() {
+    const headerEl = document.querySelector(".header-bottom");
+
+    const obs = new IntersectionObserver(
+        function (entries) {
+            const ent = entries[0];
+            // console.log(ent);
+
+            if (ent.isIntersecting === false) {
+                console.log(ent.isIntersecting);
+                $("#header").classList.add("small");
+                // document.body.classList.add("sticky");
+            }
+
+            if (ent.isIntersecting === true) {
+                $("#header").classList.remove("small");
+                console.log(ent.isIntersecting);
+
+                // document.body.classList.remove("sticky");
+            }
+        }
+        // {
+        //     // In the viewport
+        //     root: null,
+        //     threshold: 0,
+        //     rootMargin: "-80px",
+        // }
+    );
+    obs.observe(headerEl);
 }
 
 function handleInputFileType() {

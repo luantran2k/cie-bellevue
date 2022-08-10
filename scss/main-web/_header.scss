@@ -1,4 +1,10 @@
 #header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    z-index: 2;
     .container-w {
         display: flex;
         justify-content: space-between;
@@ -45,6 +51,11 @@
                     font-weight: $bold;
                 }
             }
+        }
+    }
+    &.small {
+        .logo {
+            height: 8rem;
         }
     }
 }
