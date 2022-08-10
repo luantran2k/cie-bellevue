@@ -1,6 +1,7 @@
 import { registerLabel } from "./objRef.js";
 import { readAllData } from "./firebase/fireStore.js";
-import app, { db, auth } from "./firebase/configFirebase.js";
+import { db } from "./firebase/configFirebase.js";
+import { logIn, checkLogIn, logOut } from "./firebase/firebaseAuth.js";
 import {
     collection,
     addDoc,
@@ -17,6 +18,7 @@ import {
     limit,
     limitToLast,
 } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js";
+
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 const NUM_ROW_DISPLAY = 20;
@@ -29,10 +31,46 @@ let queryConditions = [];
 
 function start() {
     $(`[tableName=${tableName}]`).classList.add("active");
+    checkLogIn(loginSuccess, loginFail);
+}
+
+function hiddenLoginForm() {
+    $(".login-form-container").classList.remove("active");
+    $(".logout-btn").classList.add("show");
+}
+function showLoginForm() {
+    $(".login-form-container").classList.add("active");
+    $(".logout-btn").classList.remove("show");
+}
+
+function loginSuccess() {
+    hiddenLoginForm();
+    handleLogout();
     handleNav();
     handleToolBar();
     loadTable(tableName);
     handleControlPagination();
+}
+
+function loginFail() {
+    showLoginForm();
+    handleLogin();
+}
+
+function handleLogin() {
+    let emailInput = $("#login-email");
+    let passWordInput = $("#login-password");
+    let form = $(".login-form");
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        logIn(emailInput.value, passWordInput.value, hiddenLoginForm);
+    });
+}
+
+function handleLogout() {
+    $(".logout-btn").addEventListener("click", (e) => {
+        logOut();
+    });
 }
 
 function handleToolBar() {
@@ -281,7 +319,7 @@ function handleControlPagination() {
         getNextData(tableName).then((data) => {
             let array = data.docs.map((doc) => doc.data());
             if (Array.isArray(array) && array.length) {
-                renderRegisterData(data, tableKeyArr, tableBody);
+                renderData(data, tableKeyArr, tableBody);
             }
         });
     });
@@ -289,7 +327,7 @@ function handleControlPagination() {
         getPreviousData(tableName).then((data) => {
             let array = data.docs.map((doc) => doc.data());
             if (Array.isArray(array) && array.length) {
-                renderRegisterData(data, tableKeyArr, tableBody);
+                renderData(data, tableKeyArr, tableBody);
             }
         });
     });

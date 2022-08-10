@@ -20,7 +20,8 @@
             list-style: none;
             li {
                 position: relative;
-                &.login-btn {
+                &.logout-btn {
+                    display: none;
                     font-size: 2.4rem;
                     color: #fff;
                     background-color: $blue-6;
@@ -28,6 +29,9 @@
                     border-radius: 1rem;
                     cursor: pointer;
                     user-select: none;
+                    &.show {
+                        display: inline-block;
+                    }
                 }
                 a {
                     text-transform: uppercase;
