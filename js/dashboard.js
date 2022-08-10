@@ -280,7 +280,7 @@ function renderData(documentDatas, tableKeyArr, tableBody) {
                     break;
                 case "more":
                     acc.push(
-                        `<td><a href="./register-detail.html" class="register-detail" id="${data.id}">Chi tiết</a></td>`
+                        `<td><a href="./register-detail.html" target="_blank" class="register-detail" id="${data.id}">Chi tiết</a></td>`
                     );
                     break;
                 default:
