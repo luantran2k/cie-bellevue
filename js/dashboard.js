@@ -110,7 +110,10 @@ function starUnCheck(star) {
 //Check star checked by checkbox
 function handleStarCheckBtn() {
     $(".star-check").addEventListener("click", (e) => {
-        const checkedInputs = $$('input[type="checkbox"]:checked');
+        const checkedInputs = $$(
+            'input[type="checkbox"]:not(.check-all):checked'
+        );
+        console.log(checkedInputs);
         checkedInputs.forEach((checkedInput) => {
             let star = $(`.star[value="${checkedInput.value}"]`);
             starCheck(star);
@@ -122,7 +125,9 @@ function handleStarCheckBtn() {
 //Un check star checked by checkbox
 function handleStarUnCheckBtn() {
     $(".star-uncheck").addEventListener("click", (e) => {
-        const checkedInputs = $$('input[type="checkbox"]:checked');
+        const checkedInputs = $$(
+            'input[type="checkbox"]:not(.check-all):checked'
+        );
         checkedInputs.forEach((checkedInput) => {
             let star = $(`.star[value="${checkedInput.value}"]`);
             starUnCheck(star);
@@ -234,7 +239,7 @@ function loadTableHead(tableKeyArr, tableHead) {
             return `<th>${registerLabel[tableHead] || ""}</th>`;
         }
     });
-    tableHead.innerHTML = `<tr><th></th><th></th>${tableHeadData.join(
+    tableHead.innerHTML = `<tr><th><input type="checkbox" class="check-all" name="check-all"></th><th></th>${tableHeadData.join(
         ""
     )}</tr>`;
 }
@@ -289,6 +294,16 @@ function renderData(registerData, tableKeyArr, tableBody) {
         tableData.push(`<tr>${checkBox}${star}${rowArr.join("")}</tr>`);
     }
     tableBody.innerHTML = tableData.join("");
+    handleCheckAll();
+}
+
+function handleCheckAll() {
+    let checkAllcheckBox = $(`.check-all`);
+    checkAllcheckBox.addEventListener("change", function (e) {
+        [...$$(`tbody input[type="checkbox"]`)].forEach((checkBox) => {
+            checkBox.checked = this.checked;
+        });
+    });
 }
 
 function handleStarClick() {
