@@ -245,16 +245,19 @@ function loadTableHead(tableKeyArr, tableHead) {
 }
 
 async function loadTableData(collectionName, tableKeyArr, tableBody) {
-    let registerData = await getDataFirst(collectionName, queryConditions);
-    firstDoc = getFirstDocument(registerData);
-    lastDoc = getLastDocument(registerData);
-    renderData(registerData, tableKeyArr, tableBody);
+    let documentDatas = await getDataFirst(collectionName, queryConditions);
+    firstDoc = getFirstDocument(documentDatas);
+    lastDoc = getLastDocument(documentDatas);
+    renderData(documentDatas, tableKeyArr, tableBody);
 }
 
-function renderData(registerData, tableKeyArr, tableBody) {
-    let datas = registerData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-    firstDoc = getFirstDocument(registerData);
-    lastDoc = getLastDocument(registerData);
+function renderData(documentDatas, tableKeyArr, tableBody) {
+    let datas = documentDatas.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+    }));
+    firstDoc = getFirstDocument(documentDatas);
+    lastDoc = getLastDocument(documentDatas);
     let tableData = [];
     for (let data of datas) {
         let rowArr = tableKeyArr.reduce((acc, key) => {

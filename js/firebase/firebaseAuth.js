@@ -15,7 +15,7 @@ export async function checkLogIn(accept, reject) {
     });
 }
 export function logIn(email, password, hiddenForm, messageEl) {
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(getAuth(), email, password)
         .then((userCredential) => {
             hiddenForm();
         })
